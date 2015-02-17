@@ -10,8 +10,11 @@ Rectangle = React.createClass({
   },
 
   componentDidMount: function () {
-    this.draggie = new Draggabilly(this.getDOMNode());
+    var div = this.getDOMNode();
+    this.draggie = new Draggabilly(div);
     this.draggie.on('dragEnd', (_, __, pointer) => {
+      div.style.left = this.props.left*100 + "%";
+      div.style.top = this.props.top*100 + "%";
       this.props.onDragEnd(
         pointer.pageX / $(window).width(), pointer.pageY / $(window).height());
     });
