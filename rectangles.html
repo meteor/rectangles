@@ -5,15 +5,3 @@
 <body>
   {{> ReactComponent type="Dashboard"}}
 </body>
-
-<template name="dashboard">
-  <div class="dashboard">
-    {{#each layout.columns}}
-      {{#each .}}
-        <div class="rect {{type}}rect" style="width:{{width}}%;height:{{height}}%;left:{{left}}%;top:{{top}}%">
-          {{type}}
-        </div>
-      {{/each}}
-    {{/each}}
-   </div>
-</template>

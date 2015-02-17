@@ -37,8 +37,20 @@ Dashboard = React.createClass({
     });
   },
   render: function () {
-    return <div className="dashboard">
+    var bounds = this.calculateRectangleBounds();
 
+    return <div className="dashboard">
+      {bounds.map((column) =>
+        <div>
+          {column.map((rect) =>
+            <div className={"rect " + rect.type + "rect"}
+                 style={{width: rect.width + "%", height: rect.height + "%",
+                        left: rect.left + "%", top: rect.top + "%"}}>
+              {rect.type}
+            </div>
+          )}
+        </div>
+      )}
       </div>;
   }
 });
