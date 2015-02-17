@@ -1,12 +1,6 @@
 Dashboard = React.createClass({
-  getInitialState: function () {
-    return {
-      columns: [[{type: "photo"}, {type: "text"}],
-                [{type: "text"}, {type: "photo"}]]
-    };
-  },
   calculateRectangleBounds: function () {
-    var columns = this.state.columns;
+    var columns = this.props.columns;
     // Return a two-dimensional array of
     // {type, width, height, left, top},
     // where width/height/left/top are numeric percentages.
