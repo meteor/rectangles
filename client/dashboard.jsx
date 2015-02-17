@@ -49,25 +49,30 @@ Dashboard = React.createClass({
 
     var bounds = this.calculateRectangleBounds();
     var numColumns = bounds.length;
-    var newColumnIndex = Math.floor(xFraction * numColumns);
+    var destColumnIndex = Math.floor(xFraction * numColumns);
 
-    var newColumn = bounds[newColumnIndex];
-    var newRectIndex = newColumn.length; // if the clause in the loop below is never satisfied
-    _.find(newColumn, (rect, rectIndex) => {
+    var destColumn = bounds[destColumnIndex];
+    var destRectIndex = destColumn.length; // if the clause in the loop below is never satisfied
+    _.find(destColumn, (rect, rectIndex) => {
       var rectMidY = rect.top + rect.height / 2;
 
       if (rectMidY > yFraction) {
-        newRectIndex = rectIndex;
+        destRectIndex = rectIndex;
         return true;
       } else {
         return false;
       }
     });
 
-    var oldColumn = bounds[columnIndex];
-    var newLayout = _.clone(this.props.columns);
+    var newColumns = EJSON.clone(this.props.columns);
 
-    // call `this.props.onChangeLayout(columns)`
-    console.log(columnIndex, rectIndex, xFraction, yFraction);
+    var movedRect = newColumns[columnIndex][rectIndex];
+    // first, clone "movedRect" and move it into its new place.
+    newColumns[destColumnIndex].splice(destRectIndex, 0, EJSON.clone(movedRect));
+    // then, delete it (via reference equality check, not index. the
+    // indexes may have changed)
+    newColumns[columnIndex] = _.without(newColumns[columnIndex], movedRect);
+
+    this.props.onChangeLayout(newColumns);
   }
 });

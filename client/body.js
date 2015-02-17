@@ -1,11 +1,13 @@
-// xcxc doc
-var updateColumnsAfterDrag = function (columnIndex, rectIndex, xPos, yPos) {
-  console.log(columnIndex, rectIndex, xPos, yPos);
+var onChangeLayout = function (newColumns) {
+  Rectangles.update(Rectangles.findOne()._id, {columns: newColumns});
 };
 
 Template.body.helpers({
   props: function () {
     var columns = Rectangles.findOne() && Rectangles.findOne().columns;
-    return {columns: columns, updateColumnsAfterDrag: updateColumnsAfterDrag};
+    return {
+      columns: columns,
+      onChangeLayout: onChangeLayout
+    }
   }
 });
