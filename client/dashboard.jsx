@@ -35,16 +35,14 @@ Dashboard = React.createClass({
 
     return <div className="dashboard">
       {bounds.map((column) =>
-        <div>
-          {column.map((rect) =>
+            column.map((rect) =>
             <div className={"rect " + rect.type + "rect"}
                  style={{width: rect.width + "%", height: rect.height + "%",
                         left: rect.left + "%", top: rect.top + "%"}}>
               {rect.type}
             </div>
-          )}
-        </div>
-      )}
+          )
+        )}
       </div>;
   }
 });
