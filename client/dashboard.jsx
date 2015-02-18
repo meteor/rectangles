@@ -1,5 +1,7 @@
 Dashboard = React.createClass({
   calculateRectangleBounds: function () {
+    var aspectRatio =
+      this.props.dimensions.width / this.props.dimensions.height;
     var columns = this.props.columns;
     // Return a two-dimensional array of
     // {type, width, height, left, top},
@@ -12,13 +14,13 @@ Dashboard = React.createClass({
         if (rect.type === 'text') {
           numFlex++;
         } else if (rect.type === 'photo') {
-          amountFlex -= colWidth * 0.75;
+          amountFlex -= colWidth * 0.75 * aspectRatio;
         }
       });
       var totalHeight = 0;
       return _.map(rects, function (rect) {
         var height = (rect.type === 'text' ? amountFlex/numFlex :
-                      colWidth * 0.75);
+                      colWidth * 0.75 * aspectRatio);
         var top = totalHeight;
         totalHeight += height;
         return { type: rect.type,
