@@ -11,7 +11,7 @@ Dashboard = React.createClass({
       var numFlex = 0;
       var amountFlex = 1.;
       _.each(rects, function (rect) {
-        if (rect.type === 'text') {
+        if (rect.type === 'richText') {
           numFlex++;
         } else if (rect.type === 'photo') {
           amountFlex -= colWidth * 0.75 * aspectRatio;
@@ -19,11 +19,12 @@ Dashboard = React.createClass({
       });
       var totalHeight = 0;
       return _.map(rects, function (rect) {
-        var height = (rect.type === 'text' ? amountFlex/numFlex :
+        var height = (rect.type === 'richText' ? amountFlex/numFlex :
                       colWidth * 0.75 * aspectRatio);
         var top = totalHeight;
         totalHeight += height;
         return { type: rect.type,
+                 rectId: rect.rectId,
                  width: colWidth,
                  height: height,
                  left: colNum*colWidth,

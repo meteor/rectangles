@@ -1,11 +1,27 @@
+var rectangleTypes = {
+  richText: RichTextRectangle,
+  photo: PhotoRectangle
+};
+
 Rectangle = React.createClass({
+  mixins: [ReactMeteor.Mixin],
+  getMeteorState: function () {
+    console.log(this.props.rectId);
+    return {
+      rect: Rectangles.findOne(this.props.rectId)
+    };
+  },
   render: function () {
+    console.log('xy', this.props.type, rectangleTypes[this.props.type]);
+
     return <div className={"rect " + this.props.type + "rect"}
                 style={{width: this.props.width*100 + "%",
                         height: this.props.height*100 + "%",
                         left: this.props.left*100 + "%",
                         top: this.props.top*100 + "%"}}>
-      {this.props.type}
+      {this.state.rect ?
+       React.createElement(rectangleTypes[this.props.type], this.state.rect) :
+       "Loading..."}
     </div>;
   },
 

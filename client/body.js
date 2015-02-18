@@ -1,5 +1,5 @@
 var onChangeLayout = function (newColumns) {
-  Rectangles.update(Rectangles.findOne()._id, {columns: newColumns});
+  Dashboards.update(Dashboards.findOne()._id, {columns: newColumns});
 };
 
 var windowDimensions = new ReactiveVar();
@@ -19,7 +19,7 @@ $(window).on('resize', function () {
 
 Template.body.helpers({
   props: function () {
-    var columns = Rectangles.findOne() && Rectangles.findOne().columns;
+    var columns = Dashboards.findOne() && Dashboards.findOne().columns;
     return {
       columns: columns,
       onChangeLayout: onChangeLayout,
