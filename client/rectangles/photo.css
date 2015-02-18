@@ -1,0 +1,10 @@
+.cycle-slideshow {
+    -webkit-perspective: 1000;
+    -webkit-transform-style: preserve-3d;
+    -moz-perspective: 1000;
+    -moz-transform-style: preserve-3d;
+    -o-perspective: 1000;
+    -o-transform-style: preserve-3d;
+    perspective: 1000;
+    transform-style: preserve-3d;
+}
