@@ -18,6 +18,30 @@ html, body {
 }
 
 .rect {
-  border: 2px solid black;
   position: absolute;
+
+  &.is-dragging {
+    z-index: 1;
+  }
+
+  .rect-body {
+    position: absolute;
+    @PAD: 10px;
+    top: @PAD;
+    left: @PAD;
+    bottom: @PAD;
+    right: @PAD;
+  }
+}
+
+.photoRect {
+  .rect-body {
+    background: red;
+  }
+}
+
+.richTextRect {
+  .rect-body {
+    background: blue;
+  }
 }
