@@ -1,23 +1,48 @@
 RichTextRectangle = React.createClass({
   getInitialState: function () {
-    return { editing: false };
+    return {
+      content: {ops: [{insert: 'Hello World!'}]},
+      isEditing: false
+    };
   },
   render: function () {
     // the <div> is just for React's benefit.  Also, the "key"
     // attributes seem to workaround a bizarre bug where clicking
     // "Save" triggers both finishEditing and startEditing.
     return <div>
-      {this.state.editing ?
-       <RichTextEditor key="1" onSave={this.finishEditing} /> :
-       <span key="2" onClick={this.startEditing}>Edit</span>}
+      {this.state.isEditing ?
+       <RichTextEditor key="1" initialContent={this.state.content}
+        onSave={this.finishEditing} /> :
+       <div key="2" className="view-mode">
+       <div className="view-mode-content">
+         <RichTextView content={this.state.content}/>
+       </div>
+       <div className="edit-button" onClick={this.startEditing}>Edit</div>
+       </div>}
     </div>;
   },
   startEditing: function () {
-    console.log("START");
-    this.setState({editing: true});
+    this.setState({isEditing: true});
   },
-  finishEditing: function () {
-    this.setState({editing: false});
+  finishEditing: function (quillContent) {
+    this.setState({isEditing: false,
+                   content: quillContent});
+  }
+});
+
+RichTextView = React.createClass({
+  render: function () {
+    return <div className="rich-text-content" ref="q"></div>;
+  },
+  componentDidMount: function () {
+    this.quill = new Quill(this.refs.q.getDOMNode(), {
+      theme: 'snow',
+      readOnly: true
+    });
+    this.quill.setContents(this.props.content);
+  },
+  componentDidUpdate: function () {
+    this.quill.setContents(this.props.content);
   }
 });
 
@@ -35,17 +60,20 @@ RichTextEditor = React.createClass({
       </div>;
   },
   handleSaveClicked: function () {
-    // XXX get the Quill text and pass it into onSave
-    this.props.onSave();
+    this.props.onSave(this.quill.getContents());
   },
   componentDidMount: function () {
-    this.quill = new Quill(this.refs.editor.getDOMNode(), {
+    var quill = this.quill = new Quill(this.refs.editor.getDOMNode(), {
       theme: 'snow',
       modules: {
         'toolbar': { container: this.refs.editorToolbar.getDOMNode() },
         'link-tooltip': true
       }
     });
+    quill.setContents(this.props.initialContent);
+    quill.getModule('undo-manager').clear();
+    // focus the editor, and put insertion point at end
+    quill.setSelection(quill.getLength(), quill.getLength());
 
     var wrapper = this.refs.editModeWrapper.getDOMNode();
     wrapper.addEventListener('mousedown', function (e) {
@@ -79,10 +107,9 @@ RichTextEditorToolbarControls = React.createClass({
       </span>
       <span class="ql-format-group">
       <select title="Size" class="ql-size">
-      <option value="10px">Small</option>
-      <option value="13px" selected="">Normal</option>
-      <option value="18px">Large</option>
-      <option value="32px">Huge</option>
+      <option value="16px" selected="">Normal</option>
+      <option value="24px">Large</option>
+      <option value="36px">Huge</option>
       </select>
       </span>
       <span class="ql-format-group">
