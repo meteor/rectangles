@@ -1,6 +1,7 @@
 var rectangleTypes = {
   richText: RichTextRectangle,
-  photo: PhotoRectangle
+  photo: PhotoRectangle,
+  twitter: TwitterRectangle
 };
 
 Rectangle = React.createClass({

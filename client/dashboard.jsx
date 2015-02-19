@@ -11,16 +11,17 @@ Dashboard = React.createClass({
       var numFlex = 0;
       var amountFlex = 1.;
       _.each(rects, function (rect) {
-        if (rect.type === 'richText') {
-          numFlex++;
-        } else if (rect.type === 'photo') {
+        if (rect.type === 'photo') {
           amountFlex -= colWidth * 0.75 * aspectRatio;
+        } else {
+          numFlex++;
         }
       });
       var totalHeight = 0;
       return _.map(rects, function (rect) {
-        var height = (rect.type === 'richText' ? amountFlex/numFlex :
-                      colWidth * 0.75 * aspectRatio);
+        var height = rect.type === 'photo'
+              ? colWidth * 0.75 * aspectRatio
+              : amountFlex/numFlex;
         var top = totalHeight;
         totalHeight += height;
         return { type: rect.type,
@@ -39,7 +40,7 @@ Dashboard = React.createClass({
     return <div className="dashboard">
       {bounds.map((column, columnIndex) =>
         column.map((rect, rectIndex) =>
-          <Rectangle {...rect}
+          <Rectangle key={rect.rectId} {...rect}
                      onDragEnd={this.onDragEnd.bind(this, columnIndex, rectIndex)} />
         ))}
       </div>;
