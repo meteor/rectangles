@@ -7,7 +7,8 @@ Rectangle = React.createClass({
   mixins: [ReactMeteor.Mixin],
   getMeteorState: function () {
     return {
-      rect: Rectangles.findOne(this.props.rectId)
+      rect: Rectangles.findOne(this.props.rectId, {reactive: false}),
+      key: 0 // used to rerender children
     };
   },
   render: function () {
@@ -16,12 +17,18 @@ Rectangle = React.createClass({
                         height: this.props.height*100 + "%",
                         left: this.props.left*100 + "%",
                         top: this.props.top*100 + "%"}}>
-      <div className="rect-body">
+      <div key={this.state.key} className="rect-body">
       {this.state.rect ?
-       React.createElement(rectangleTypes[this.props.type], this.state.rect) :
+       React.createElement(rectangleTypes[this.props.type], _.extend(
+         {rerender: this.rerender.bind(this)}, this.state.rect)) :
        "Loading..."}
       </div>
     </div>;
+  },
+
+  rerender: function () {
+    console.log("rerender");
+    this.setState({key: this.state.key + 1});
   },
 
   componentDidMount: function () {

@@ -11,10 +11,10 @@ Meteor.methods({
 
     // XXX TODO: Dedup images. Based on name?
     _.each(urls, function (url) {
-      HTTP.get(url, {responseType: "ejson-binary"}, function (err, res) {
-        var fut = new Future;
-        futures.push(fut);
+      var fut = new Future;
+      futures.push(fut);
 
+      HTTP.get(url, {responseType: "ejson-binary"}, function (err, res) {
         var extension = url.split('.').pop();
         var mimeType = extension === "jpg" ? "image/jpeg" : "image/" + extension;
 
@@ -24,6 +24,7 @@ Meteor.methods({
         });
 
         Rectangles.update(rectId, {$push: {urls: "/photos/" + photoId}});
+        fut["return"]();
       });
     });
 
