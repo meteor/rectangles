@@ -36,6 +36,44 @@ html, body {
 
 .richTextRect {
   .rect-body {
-    background: blue;
+
+  }
+
+  .edit-mode-wrapper {
+      display: table;
+      height: 100%;
+      border: 1px solid #ccc;
+  }
+  .editor-toolbar-wrapper { display: table-row; }
+  .editor-wrapper { display: table-row; }
+
+  .editor-toolbar {
+    display: table-cell;
+    background: #eee;
+    padding: 0; // override Quill's padding
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    .ql-picker-label {
+      background-color: transparent !important;
+    }
+    .edit-done {
+      color: #444;
+      &:hover { color: #06c; }
+      background: white;
+      position: absolute;
+      bottom: 2px;
+      right: 5px;
+      padding: 2px 8px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      display: inline-block;
+      font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+  
+  .editor {
+    display: table-cell;
   }
 }
