@@ -19,9 +19,9 @@ PhotoRectangle = React.createClass({
       <div className="dropbox-container" ref="dropbox-container" style={{visibility: this.state.dropboxVisible ? "" : "hidden"}}></div>
       <div className="cycle-slideshow" ref="cycle-slideshow"
         data-cycle-fx="flipHorz"
-        data-cycle-timeout={_.random(5000, 10000)}>
+        data-cycle-timeout={_.random(1000, 3000)}>
         {_.map(urls, (url) =>
-          <img style={{width: "100%", height: "100%"}} src={url} />)}
+          <img style={{width: "100%"}} src={url} />)}
       </div>
     </div>;
   },

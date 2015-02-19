@@ -13,7 +13,8 @@ Rectangle = React.createClass({
   },
   render: function () {
     return <div className={"rect " + this.props.type + "Rect"}
-                style={{width: this.props.width*100 + "%",
+                style={{overflow: "hidden",
+                        width: this.props.width*100 + "%",
                         height: this.props.height*100 + "%",
                         left: this.props.left*100 + "%",
                         top: this.props.top*100 + "%"}}>
