@@ -9,3 +9,6 @@ insecure
 avital:react-in-blaze
 less
 reactive-var
+cfs:http-methods
+http
+aldeed:http

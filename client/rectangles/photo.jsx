@@ -17,10 +17,12 @@ PhotoRectangle = React.createClass({
   },
 
   componentDidMount: function () {
+    var rectId = this.props._id;
     $(this.refs["cycle-slideshow"].getDOMNode()).cycle();
 
     var button = Dropbox.createChooseButton({
       success: function (files) {
+        Meteor.call("photos.addFromDropbox", _.pluck(files, "link"), rectId);
         console.log(files);
       },
 
