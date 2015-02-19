@@ -1,3 +1,8 @@
+// TODO:
+// - replace rotation with fade in and out with ease
+// - remove images from rotation
+// - stagger timing of photo transitions
+// - crop images
 PhotoRectangle = React.createClass({
   getInitialState: function () {
     return {
