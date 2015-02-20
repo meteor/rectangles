@@ -6,11 +6,14 @@ var rectangleTypes = {
 
 Rectangle = React.createClass({
   mixins: [ReactMeteor.Mixin],
+  getInitialState: function () {
+    return {
+      key: 0
+    };
+  },
   getMeteorState: function () {
     return {
-      rect: Rectangles.findOne(this.props.rectId, {reactive: false}),
-      // used to rerender children
-      key: this.state ? (this.state.key + 1) : 0
+      rect: Rectangles.findOne(this.props.rectId, {reactive: false})
     };
   },
   render: function () {
@@ -31,7 +34,7 @@ Rectangle = React.createClass({
   },
 
   rerender: function () {
-    this.setState(this.getMeteorState());
+    this.setState({key: this.state.key + 1});
   },
 
   componentDidMount: function () {

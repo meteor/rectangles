@@ -6,10 +6,10 @@
 
 meteor-platform
 insecure
-avital:react-in-blaze
 less
 reactive-var
 cfs:http-methods
 http
 aldeed:http
 jhartma:quill
+avital:react-in-blaze
