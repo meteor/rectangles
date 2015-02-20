@@ -11,12 +11,16 @@ PhotoRectangle = React.createClass({
   render: function () {
     // show newest images first.
     var urls = _.clone(this.props.urls).reverse();
+    if (urls.length === 0) {
+      urls = ["http://malsup.github.io/images/p1.jpg",
+              "http://malsup.github.io/images/p2.jpg"];
+    }
 
-    return <div className="photo-outer" key={this.state.key}>
+    return <div className="photo-outer"> 
       <div className="dropbox-container" ref="dropbox-container"></div>
       <div className="cycle-slideshow" ref="cycle-slideshow"
         data-cycle-fx="flipHorz"
-        data-cycle-timeout={_.random(1000, 3000)}>
+        data-cycle-timeout={_.random(8000, 15000)}>
         {_.map(urls, (url) =>
           <img style={{width: "100%"}} src={url} />)}
       </div>

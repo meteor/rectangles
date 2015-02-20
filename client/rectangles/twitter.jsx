@@ -9,19 +9,20 @@ TwitterRectangle = React.createClass({
       return <div className="config-outer">
         <div className="move-button">Move</div>
         <div>
-          {"Configure your "}
-          <a href="https://twitter.com/settings/widgets/new/">new Twitter widget</a>.
-          When {"you're"} done, click on "Create widget". Then, copy and paste the HTML
-          code:
+          {"Visit "}
+          <a href="https://twitter.com/settings/widgets/new/" target="_blank">
+            Twitter
+          </a>
+          {" to"} choose a widget. After choosing, click on "Create widget".
+          Then, copy and paste the HTML code:
         </div>
 
         <textarea ref="html"
-                  style={{marginTop: "5px", marginBottom: "5px",
-                          width: "99%", height: "80px"}} />
-        <button style={{width: "40px", height: "20px"}}
-                onClick={this.configure}>
+                  style={{marginTop: "10px",
+                          width: "99%", height: "120px"}} />
+        <div className="add-button" style={{width: "100%"}} onClick={this.configure}>
           Add!
-        </button>
+        </div>
       </div>;
     }
   },

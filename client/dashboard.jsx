@@ -38,6 +38,7 @@ Dashboard = React.createClass({
     var bounds = this.calculateRectangleBounds();
 
     return <div className="dashboard">
+      <AddButtons />
       {bounds.map((column, columnIndex) =>
         column.map((rect, rectIndex) =>
           <Rectangle key={rect.rectId} {...rect}

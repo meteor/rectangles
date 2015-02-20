@@ -1,0 +1,21 @@
+@import "mixins";
+
+.add-buttons {
+  z-index: 100000;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: 0;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.add-button {
+  .nice-button();
+  position: relative;
+  display: block;
+  width: 150px;
+  cursor: pointer;
+}
