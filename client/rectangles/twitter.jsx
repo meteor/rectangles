@@ -15,7 +15,7 @@ TwitterRectangle = React.createClass({
           code:
         </div>
 
-        <textarea style={{marginTop: "5px", marginBottom: "5px", width: "100%", height: "80px"}}></textarea>
+        <textarea style={{marginTop: "5px", marginBottom: "5px", width: "99%", height: "80px"}}></textarea>
         <button style={{width: "40px", height: "20px"}}
                 onClick={this.configure}>
           Add!

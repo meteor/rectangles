@@ -1,9 +1,16 @@
 RichTextRectangle = React.createClass({
   getInitialState: function () {
     return {
-      content: {ops: [{insert: 'Hello World!'}]},
       isEditing: false
     };
+  },
+  getContent: function () {
+    var content = this.props.text;
+    if (typeof content === 'string') {
+      // promote to a Quill document
+      content = {ops: [{insert: content}]};
+    }
+    return content;
   },
   render: function () {
     // the <div> is just for React's benefit.  Also, the "key"
@@ -11,11 +18,11 @@ RichTextRectangle = React.createClass({
     // "Save" triggers both finishEditing and startEditing.
     return <div>
       {this.state.isEditing ?
-       <RichTextEditor key="1" initialContent={this.state.content}
+       <RichTextEditor key="1" initialContent={this.getContent()}
         onSave={this.finishEditing} /> :
        <div key="2" className="view-mode hover-box">
        <div className="view-mode-content">
-         <RichTextView content={this.state.content}/>
+       <RichTextView content={this.getContent()}/>
        </div>
        <div className="edit-button" onClick={this.startEditing}>Edit</div>
        <div className="move-button">Move</div>
@@ -26,8 +33,9 @@ RichTextRectangle = React.createClass({
     this.setState({isEditing: true});
   },
   finishEditing: function (quillContent) {
-    this.setState({isEditing: false,
-                   content: quillContent});
+    this.setState({isEditing: false});
+    Rectangles.update(this.props._id, {$set: {text: quillContent}});
+    this.props.rerender();
   },
   componentDidUpdate: function () {
     // We may have gained a new "Move" button

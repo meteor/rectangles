@@ -9,7 +9,8 @@ Rectangle = React.createClass({
   getMeteorState: function () {
     return {
       rect: Rectangles.findOne(this.props.rectId, {reactive: false}),
-      key: 0 // used to rerender children
+      // used to rerender children
+      key: this.state ? (this.state.key + 1) : 0
     };
   },
   render: function () {
@@ -30,7 +31,7 @@ Rectangle = React.createClass({
   },
 
   rerender: function () {
-    this.setState({key: this.state.key + 1});
+    this.setState(this.getMeteorState());
   },
 
   componentDidMount: function () {

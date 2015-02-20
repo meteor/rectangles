@@ -45,6 +45,11 @@ html, body {
   .move-button { visibility: hidden } // show on hover
   &:hover {
     border-color: #ccc;
+    // Turning on overflow:hidden here looks nice because it hides
+    // the overflow on hover (so the "Move" button looks more like it
+    // is in the corner if the rect overflows its box).  However, it
+    // seems to lead to a flaky right border in Chrome.
+    //overflow: hidden;
     .move-button { visibility: visible }
   }
 }

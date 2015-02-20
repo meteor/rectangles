@@ -40,4 +40,3 @@ HTTP.methods({
     return photo.data;
   }
 });
-
