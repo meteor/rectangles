@@ -13,7 +13,7 @@ Rectangle = React.createClass({
   },
   getMeteorState: function () {
     return {
-      rect: Rectangles.findOne(this.props.rectId, {reactive: false})
+      rect: Rectangles.findOne(this.props.rectId)
     };
   },
   render: function () {
