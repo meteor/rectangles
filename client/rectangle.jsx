@@ -23,12 +23,13 @@ Rectangle = React.createClass({
                         height: this.props.height*100 + "%",
                         left: this.props.left*100 + "%",
                         top: this.props.top*100 + "%"}}>
-      <div key={this.state.key} className="rect-body">
-      {this.state.rect ?
-       React.createElement(rectangleTypes[this.props.type], _.extend(
-         {rerender: this.rerender,
-          dragHandlesChanged: this.requeryDragHandles}, this.state.rect)) :
-       "Loading..."}
+      <div key={this.state.key} className="rect-body hover-box">
+        <div className="remove-button" onClick={this.props.onRemove}>Remove</div>
+        {this.state.rect ?
+         React.createElement(rectangleTypes[this.props.type], _.extend(
+           {rerender: this.rerender,
+            dragHandlesChanged: this.requeryDragHandles}, this.state.rect)) :
+         "Loading..."}
       </div>
     </div>;
   },

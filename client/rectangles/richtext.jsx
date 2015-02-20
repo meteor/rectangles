@@ -20,7 +20,7 @@ RichTextRectangle = React.createClass({
       {this.state.isEditing ?
        <RichTextEditor key="1" initialContent={this.getContent()}
         onSave={this.finishEditing} /> :
-       <div key="2" className="view-mode hover-box">
+       <div key="2" className="view-mode">
        <div className="view-mode-content">
        <RichTextView content={this.getContent()}/>
        </div>

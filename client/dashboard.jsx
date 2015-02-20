@@ -41,7 +41,8 @@ Dashboard = React.createClass({
       {bounds.map((column, columnIndex) =>
         column.map((rect, rectIndex) =>
           <Rectangle key={rect.rectId} {...rect}
-                     onDragEnd={this.onDragEnd.bind(this, columnIndex, rectIndex)} />
+                     onDragEnd={this.onDragEnd.bind(this, columnIndex, rectIndex)}
+                     onRemove={this.onRemove.bind(this, columnIndex, rectIndex)}/>
         ))}
       </div>;
   },
@@ -77,6 +78,11 @@ Dashboard = React.createClass({
     // indexes may have changed)
     newColumns[columnIndex] = _.without(newColumns[columnIndex], movedRect);
 
+    this.props.onChangeLayout(newColumns);
+  },
+  onRemove: function (columnIndex, rectIndex) {
+    var newColumns = EJSON.clone(this.props.columns);
+    newColumns[columnIndex].splice(rectIndex, 1);
     this.props.onChangeLayout(newColumns);
   }
 });

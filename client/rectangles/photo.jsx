@@ -12,7 +12,7 @@ PhotoRectangle = React.createClass({
     // show newest images first.
     var urls = _.clone(this.props.urls).reverse();
 
-    return <div className="photo-outer hover-box" key={this.state.key}>
+    return <div className="photo-outer" key={this.state.key}>
       <div className="dropbox-container" ref="dropbox-container"></div>
       <div className="cycle-slideshow" ref="cycle-slideshow"
         data-cycle-fx="flipHorz"

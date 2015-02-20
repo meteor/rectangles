@@ -42,7 +42,7 @@ html, body {
 // edited (in which case no hover-box).
 .hover-box {
   border: 1px solid transparent;
-  .move-button { visibility: hidden } // show on hover
+  .move-button, .remove-button { visibility: hidden } // show on hover
   &:hover {
     border-color: #ccc;
     // Turning on overflow:hidden here looks nice because it hides
@@ -50,7 +50,7 @@ html, body {
     // is in the corner if the rect overflows its box).  However, it
     // seems to lead to a flaky right border in Chrome.
     //overflow: hidden;
-    .move-button { visibility: visible }
+    .move-button, .remove-button { visibility: visible }
   }
 }
 
@@ -59,4 +59,12 @@ html, body {
   right: -1px;
   bottom: -1px;
   cursor: move;
+}
+
+.remove-button {
+  .nice-button();
+  left: -1px;
+  bottom: -1px;
+  cursor: pointer;
+  z-index: 1000;
 }
