@@ -15,7 +15,8 @@ TwitterRectangle = React.createClass({
           code:
         </div>
 
-        <textarea style={{marginTop: "5px", marginBottom: "5px",
+        <textarea ref="html"
+                  style={{marginTop: "5px", marginBottom: "5px",
                           width: "99%", height: "80px"}} />
         <button style={{width: "40px", height: "20px"}}
                 onClick={this.configure}>
@@ -26,10 +27,9 @@ TwitterRectangle = React.createClass({
   },
 
   configure: function () {
-    var rectId = this.props.rectId;
-    var html = this.ref.html.getDOMNode().value;
-    console.log(rectId, html);
-//    Rectangles.update(rectId, {$set: {html: 
+    var rectId = this.props._id;
+    var html = this.refs.html.getDOMNode().value;
+    Rectangles.update(rectId, {$set: {html: html}});
   },
 
   componentDidUpdate: function () {
