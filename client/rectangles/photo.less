@@ -1,7 +1,17 @@
 .photoRect {
   .dropbox-container {
     position: absolute;
+    visibility: hidden;
     z-index: 10000;
+  } // show on hover
+  .photo-outer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    &:hover {
+      overflow: hidden;
+      .dropbox-container { visibility: visible }
+    }
   }
 }
 

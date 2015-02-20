@@ -1,3 +1,4 @@
+@import "mixins";
 
 * {
   margin: 0;
@@ -15,20 +16,6 @@ html, body {
     position: absolute;
     width: 100%;
     height: 100%;
-}
-
-.nice-button() {
-    color: #444;
-    &:hover { color: #06c; }
-    background: white;
-    padding: 2px 8px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    display: inline-block;
-    position: absolute;
-    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
 }
 
 .rect {
@@ -49,12 +36,6 @@ html, body {
 
 }
 
-.photoRect {
-  .rect-body {
-    //background: #eee;
-  }
-}
-
 // each type of rectangle puts one of these somewhere
 // if it has no border so that one appears on hover.
 // rich-text rectangle has no border unless it is being
@@ -73,62 +54,4 @@ html, body {
   right: -1px;
   bottom: -1px;
   cursor: move;
-}
-
-.richTextRect {
-  // should match "Normal" in RichTextEditorToolbarControls
-  @normal-font-size: 16px;
-
-  .rect-body {
-
-  }
-
-  .view-mode {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    .edit-button {
-      visibility: hidden; // shown on hover
-      .nice-button();
-      top: -1px;
-      right: -1px;
-    }
-    &:hover {
-      .edit-button { visibility: visible; }
-    }
-    .rich-text-content {
-      font-size: @normal-font-size; // override Quill
-    }
-  }
-
-  .edit-mode-wrapper {
-      position: absolute;
-      display: table;
-      width: 100%;
-      height: 100%;
-      border: 1px solid #ccc;
-  }
-  .editor-toolbar-wrapper { display: table-row; }
-  .editor-wrapper { display: table-row; }
-
-  .editor-toolbar {
-    display: table-cell;
-    background: #eee;
-    padding: 0; // override Quill's padding
-    border-bottom: 1px solid #ccc;
-    position: relative;
-    .ql-picker-label {
-      background-color: transparent !important;
-    }
-    .edit-done {
-      .nice-button();
-      bottom: 2px;
-      right: 5px;
-    }
-  }
-  
-  .editor {
-    display: table-cell;
-    font-size: @normal-font-size; // override Quill
-  }
 }

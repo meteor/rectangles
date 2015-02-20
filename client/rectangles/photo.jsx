@@ -12,17 +12,15 @@ PhotoRectangle = React.createClass({
     // show newest images first.
     var urls = _.clone(this.props.urls).reverse();
 
-    return <div key={this.state.key}
-      onMouseEnter={this.setState.bind(this, {dropboxVisible: true}, null)}
-      onMouseLeave={this.setState.bind(this, {dropboxVisible: false}, null)}>
-
-      <div className="dropbox-container" ref="dropbox-container" style={{visibility: this.state.dropboxVisible ? "" : "hidden"}}></div>
+    return <div className="photo-outer hover-box" key={this.state.key}>
+      <div className="dropbox-container" ref="dropbox-container"></div>
       <div className="cycle-slideshow" ref="cycle-slideshow"
         data-cycle-fx="flipHorz"
         data-cycle-timeout={_.random(1000, 3000)}>
         {_.map(urls, (url) =>
           <img style={{width: "100%"}} src={url} />)}
       </div>
+      <div className="move-button">Move</div>
     </div>;
   },
 
