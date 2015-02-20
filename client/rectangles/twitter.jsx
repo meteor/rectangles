@@ -1,9 +1,13 @@
 TwitterRectangle = React.createClass({
   render: function () {
     if (this.props.html) {
-      return <div dangerouslySetInnerHTML={{__html: this.props.html}}></div>;
+      return <div className="tweets-outer hover-box">
+        <div dangerouslySetInnerHTML={{__html: this.props.html}}></div>
+        <div className="move-button">Move</div>
+        </div>;
     } else {
-      return <div>
+      return <div className="config-outer hover-box">
+        <div className="move-button">Move</div>
         <div>
           {"Configure your "}
           <a href="https://twitter.com/settings/widgets/new/">new Twitter widget</a>.
@@ -13,7 +17,7 @@ TwitterRectangle = React.createClass({
 
         <textarea style={{marginTop: "5px", marginBottom: "5px", width: "100%", height: "80px"}}></textarea>
         <button style={{width: "40px", height: "20px"}}
-                onclick={this.configure.bind(this)}>
+                onClick={this.configure}>
           Add!
         </button>
       </div>;
@@ -22,13 +26,20 @@ TwitterRectangle = React.createClass({
 
   // Turns out javascript in a script tag doesn't get eval'd automatically.
   evalJs: function () {
-    var js = this.props.html.match(/<script>(.*)<\/script>/)[1];
-    eval(js);
+    if (this.props.html) {
+      var js = this.props.html.match(/<script>(.*)<\/script>/)[1];
+      eval(js);
+    }
   },
 
   configure: function () {
   },
 
-  componentDidMount: function () { this.evalJs(); },
-  componentDidUpdate: function () { this.evalJs(); }
+  componentDidMount: function () {
+    this.evalJs();
+  },
+  componentDidUpdate: function () {
+    this.props.dragHandlesChanged();
+    this.evalJs();
+  }
 });
