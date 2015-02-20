@@ -13,11 +13,12 @@ RichTextRectangle = React.createClass({
       {this.state.isEditing ?
        <RichTextEditor key="1" initialContent={this.state.content}
         onSave={this.finishEditing} /> :
-       <div key="2" className="view-mode">
+       <div key="2" className="view-mode hover-box">
        <div className="view-mode-content">
          <RichTextView content={this.state.content}/>
        </div>
        <div className="edit-button" onClick={this.startEditing}>Edit</div>
+       <div className="move-button">Move</div>
        </div>}
     </div>;
   },
@@ -27,6 +28,10 @@ RichTextRectangle = React.createClass({
   finishEditing: function (quillContent) {
     this.setState({isEditing: false,
                    content: quillContent});
+  },
+  componentDidUpdate: function () {
+    // We may have gained a new "Move" button
+    this.props.dragHandlesChanged();
   }
 });
 
@@ -74,12 +79,6 @@ RichTextEditor = React.createClass({
     quill.getModule('undo-manager').clear();
     // focus the editor, and put insertion point at end
     quill.setSelection(quill.getLength(), quill.getLength());
-
-    var wrapper = this.refs.editModeWrapper.getDOMNode();
-    wrapper.addEventListener('mousedown', function (e) {
-      // prevent dragging of the rect
-      e.stopPropagation();
-    });
   }
 });
 

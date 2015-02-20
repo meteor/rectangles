@@ -22,20 +22,22 @@ Rectangle = React.createClass({
       <div key={this.state.key} className="rect-body">
       {this.state.rect ?
        React.createElement(rectangleTypes[this.props.type], _.extend(
-         {rerender: this.rerender.bind(this)}, this.state.rect)) :
+         {rerender: this.rerender,
+          dragHandlesChanged: this.requeryDragHandles}, this.state.rect)) :
        "Loading..."}
       </div>
     </div>;
   },
 
   rerender: function () {
-    console.log("rerender");
     this.setState({key: this.state.key + 1});
   },
 
   componentDidMount: function () {
     var div = this.getDOMNode();
-    this.draggie = new Draggabilly(div);
+    this.draggie = new Draggabilly(div, {
+      handle: '.move-button'
+    });
 
     this.draggie.on('dragEnd', (_, __, pointer) => {
 
@@ -47,6 +49,16 @@ Rectangle = React.createClass({
         pointer.pageX / $(window).width(),
         pointer.pageY / $(window).height());
     });
+  },
+
+  componentDidUpdate: function () {
+    this.requeryDragHandles();
+  },
+
+  // call this if a "Move" button might ever have been recreated,
+  // so that Dragabilly can find it.
+  requeryDragHandles: function () {
+    this.draggie.setHandles();
   },
 
   componentDidUnmount: function () {
