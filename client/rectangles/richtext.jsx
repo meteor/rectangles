@@ -6,19 +6,10 @@ RichTextRectangle = React.createClass({
     };
   },
   render: function () {
-    // the <div> is just for React's benefit.  Also, the "key"
-    // attributes seem to workaround a bizarre bug where clicking
-    // "Save" triggers both finishEditing and startEditing.
-    return <div>
-      {this.state.isEditing ?
-       <RichTextEditor key="1" initialContent={this.state.content}
+    return <div>{this.state.isEditing ?
+       <RichTextEditor initialContent={this.state.content}
         onSave={this.finishEditing} /> :
-       <div key="2" className="view-mode">
-       <div className="view-mode-content">
-         <RichTextView content={this.state.content}/>
-       </div>
-       <div className="edit-button" onClick={this.startEditing}>Edit</div>
-       </div>}
+                 <div onClick={this.startEditing}>Edit</div>}
     </div>;
   },
   startEditing: function () {
