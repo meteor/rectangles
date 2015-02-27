@@ -11,6 +11,13 @@ RichTextRectangle = React.createClass({
                  <span onClick={this.startEditing}>Edit</span>}
     </div>;
   },
+  componentDidMount: function () {
+    var saveButton = this.getDOMNode().querySelector('.xxx');
+    var self = this;
+    saveButton.addEventListener('click', function () {
+      self.props.onSave({});
+    }, false);
+  },
   startEditing: function () {
     this.setState({isEditing: true});
   },
@@ -39,9 +46,6 @@ RichTextView = React.createClass({
 RichTextEditor = React.createClass({
   render: function () {
     return <div><div className="xxx">Done2</div></div>;
-  },
-  handleSaveClicked: function () {
-    this.props.onSave({});
   },
   componentDidMount: function () {
     var saveButton = this.getDOMNode().querySelector('.xxx');
