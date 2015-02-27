@@ -7,9 +7,8 @@ RichTextRectangle = React.createClass({
   },
   render: function () {
     return <div>{this.state.isEditing ?
-       <RichTextEditor initialContent={this.state.content}
-        onSave={this.finishEditing} /> :
-                 <div onClick={this.startEditing}>Edit</div>}
+                 <RichTextEditor onSave={this.finishEditing} /> :
+                 <span onClick={this.startEditing}>Edit</span>}
     </div>;
   },
   startEditing: function () {
@@ -39,39 +38,18 @@ RichTextView = React.createClass({
 
 RichTextEditor = React.createClass({
   render: function () {
-    return <div className="edit-mode-wrapper" ref="editModeWrapper">
-      <div className="editor-toolbar-wrapper">
-      <div className="editor-toolbar" ref="editorToolbar">
-      <RichTextEditorToolbarControls onSaveClicked={this.handleSaveClicked}/>
-      </div>
-      </div>
-      <div className="editor-wrapper">
-      <div className="editor" ref="editor">Editor</div>
-      </div>
-      </div>;
+    return <div><div className="xxx">Done2</div></div>;
   },
   handleSaveClicked: function () {
-    this.props.onSave(this.quill.getContents());
+    this.props.onSave({});
   },
   componentDidMount: function () {
-    var quill = this.quill = new Quill(this.refs.editor.getDOMNode(), {
-      theme: 'snow',
-      modules: {
-        'toolbar': { container: this.refs.editorToolbar.getDOMNode() },
-        'link-tooltip': true
-      }
-    });
-    quill.setContents(this.props.initialContent);
-    quill.getModule('undo-manager').clear();
-    // focus the editor, and put insertion point at end
-    quill.setSelection(quill.getLength(), quill.getLength());
-
-    var wrapper = this.refs.editModeWrapper.getDOMNode();
-    wrapper.addEventListener('mousedown', function (e) {
-      // prevent dragging of the rect
-      e.stopPropagation();
-    });
-  }
+    var saveButton = this.getDOMNode().querySelector('.xxx');
+    var self = this;
+    saveButton.addEventListener('click', function () {
+      self.props.onSave({});
+    }, false);
+  },
 });
 
 RichTextEditorToolbarControls = React.createClass({
