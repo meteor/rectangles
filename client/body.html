@@ -4,5 +4,13 @@
 </head>
 
 <body>
-  {{> ReactComponent type="Dashboard" props=props}}
+  <div style="background-color: #{{backgroundColor}}; height: 100%;">
+    {{> ReactComponent type="Dashboard" props=props}}
+  </div>
+
+  {{#if showBackgroundColorPicker}}
+    <div class="background-color-picker">
+      {{> colorPicker}}
+    </div>
+  {{/if}}
 </body>

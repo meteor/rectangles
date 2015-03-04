@@ -1,5 +1,5 @@
 var onChangeLayout = function (newColumns) {
-  Dashboards.update(Dashboards.findOne()._id, {columns: newColumns});
+  Dashboards.update(Dashboards.findOne()._id, {$set: {columns: newColumns}});
 };
 
 var windowDimensions = new ReactiveVar();
@@ -25,5 +25,11 @@ Template.body.helpers({
       onChangeLayout: onChangeLayout,
       dimensions: windowDimensions.get()
     };
+  },
+  showBackgroundColorPicker: function () {
+    return Session.get("showBackgroundColorPicker");
+  },
+  backgroundColor: function () {
+    return Dashboards.findOne().backgroundColor;
   }
 });
